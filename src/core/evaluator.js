@@ -1060,7 +1060,8 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
 
       var textContent = {
         items: [],
-        styles: Object.create(null)
+        styles: Object.create(null),
+        _styleDataStyles: Object.create(null)
       };
       var textContentItem = {
         initialized: false,
@@ -1106,7 +1107,13 @@ var PartialEvaluator = (function PartialEvaluatorClosure() {
             fontFamily: font.fallbackName,
             ascent: font.ascent,
             descent: font.descent,
-            vertical: font.vertical
+            vertical: font.vertical,
+            _styleData: font._styleData
+          };
+        }
+        if (!(font._styleData.font in textContent._styleDataStyles)) {
+          textContent._styleDataStyles[font._styleData.font] = {
+            _styleData: font._styleData
           };
         }
         textContentItem.fontName = font.loadedName;
